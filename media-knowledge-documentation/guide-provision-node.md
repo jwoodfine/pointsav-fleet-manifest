@@ -1,11 +1,13 @@
 ---
 schema: foundry-runbook-v1
+title: "Knowledge Wiki Node Provisioning"
+category: help
 component: media-knowledge-documentation
 audience: workspace-master
 canonical_language: en
 status: active
 runbook_version: 0.1.0
-last_updated: 2026-04-26
+last_edited: "2026-04-26"
 ---
 
 # guide-provision-node — media-knowledge-documentation
