@@ -1,4 +1,13 @@
-# 🚀 GUIDE: TELEMETRY ENGINE INTEGRATION
+---
+schema: foundry-runbook-v1
+title: "Telemetry Engine Integration"
+category: help
+component: media-marketing-landing
+status: active
+last_edited: "2026-04-26"
+---
+
+# Telemetry Engine Integration
 
 **Operator:** PointSav Digital Systems (Operator)
 **Vendor Software:** PointSav Sovereign Telemetry (v1.2.0 - Rust Compiled)
