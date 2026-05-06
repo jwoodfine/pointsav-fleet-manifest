@@ -1,4 +1,13 @@
-# 🧭 guide-01: TELEMETRY OPERATIONS & COMPLIANCE
+---
+schema: foundry-runbook-v1
+title: "Telemetry Operations and Compliance"
+category: help
+component: media-marketing-landing
+status: active
+last_edited: "2026-04-26"
+---
+
+# Telemetry Operations and Compliance
 **Operational Tier:** 3 (Fleet Deployment)
 **Standard:** DS-ADR-06 (Zero-Cookie Architecture)
 **Software Engine:** PointSav Omni-Matrix (v1.2.0 - Compiled Rust Core)
