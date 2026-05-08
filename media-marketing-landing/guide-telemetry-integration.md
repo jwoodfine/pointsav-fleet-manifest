@@ -1,3 +1,15 @@
+---
+schema: foundry-doc-v1
+title: "Telemetry Engine Integration — media-marketing-landing"
+slug: guide-telemetry-integration
+type: guide
+status: active
+audience: operators
+bcsc_class: current-fact
+last_edited: 2026-05-08
+editor: pointsav-engineering
+---
+
 # 🚀 GUIDE: TELEMETRY ENGINE INTEGRATION
 
 **Operator:** PointSav Digital Systems (Operator)
