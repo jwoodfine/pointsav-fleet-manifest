@@ -1,13 +1,16 @@
 ---
-schema: foundry-runbook-v1
-title: "Telemetry Operations and Compliance"
-category: help
-component: media-marketing-landing
+schema: foundry-doc-v1
+title: "Telemetry Operations and Compliance — media-marketing-landing"
+slug: guide-telemetry-operations
+type: guide
 status: active
-last_edited: "2026-04-26"
+audience: operators
+bcsc_class: current-fact
+last_edited: 2026-05-08
+editor: pointsav-engineering
 ---
 
-# Telemetry Operations and Compliance
+# 🧭 guide-01: TELEMETRY OPERATIONS & COMPLIANCE
 **Operational Tier:** 3 (Fleet Deployment)
 **Standard:** DS-ADR-06 (Zero-Cookie Architecture)
 **Software Engine:** PointSav Omni-Matrix (v1.2.0 - Compiled Rust Core)
@@ -42,9 +45,3 @@ The system generates 8 distinct matrices for financial review:
 The Tier-2 Cloud Node does not utilize fragile database clusters. All data is appended to flat `.csv` ledgers. 
 
 Operations utilize a strict "Pull Diode" (`pull-telemetry-ledgers.sh`) to securely download the synthesized `.md` matrices and the raw `.csv` ledgers back to the local terminal. This script enforces a **10-Day Rolling Retention Policy**, mathematically purging any local `.csv` backups older than 10 days to guarantee flawless data hygiene and rapid recovery capabilities.
-
----
-
-*Copyright © 2026 Woodfine Management Corp. All rights reserved.*
-
-*Woodfine Capital Projects™, Woodfine Management Corp™, PointSav Digital Systems™, Totebox Orchestration™, and Totebox Archive™ are trademarks of Woodfine Capital Projects Inc., used in Canada, the United States, Latin America, and Europe. All other trademarks are the property of their respective owners.*
