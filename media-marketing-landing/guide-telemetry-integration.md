@@ -1,13 +1,16 @@
 ---
-schema: foundry-runbook-v1
-title: "Telemetry Engine Integration"
-category: help
-component: media-marketing-landing
+schema: foundry-doc-v1
+title: "Telemetry Engine Integration — media-marketing-landing"
+slug: guide-telemetry-integration
+type: guide
 status: active
-last_edited: "2026-04-26"
+audience: operators
+bcsc_class: current-fact
+last_edited: 2026-05-08
+editor: pointsav-engineering
 ---
 
-# Telemetry Engine Integration
+# 🚀 GUIDE: TELEMETRY ENGINE INTEGRATION
 
 **Operator:** PointSav Digital Systems (Operator)
 **Vendor Software:** PointSav Sovereign Telemetry (v1.2.0 - Rust Compiled)
@@ -21,9 +24,3 @@ This document proves how Woodfine Operations deploys the generic PointSav Engine
 4. **Geographic Brain:** Woodfine injects its licensed `GeoLite2-City.mmdb` into the `assets/` vault.
 5. **Ignition (Cron):** The `omni-matrix-engine` fires daily via crontab to synthesize the raw ledgers into 8 institutional tables.
 6. **Secure Extraction:** Operations utilize a strictly scoped `rsync` Pull Diode to securely extract `REPORT_POINTSAV.md` back to local terminals.
-
----
-
-*Copyright © 2026 Woodfine Management Corp. All rights reserved.*
-
-*Woodfine Capital Projects™, Woodfine Management Corp™, PointSav Digital Systems™, Totebox Orchestration™, and Totebox Archive™ are trademarks of Woodfine Capital Projects Inc., used in Canada, the United States, Latin America, and Europe. All other trademarks are the property of their respective owners.*
