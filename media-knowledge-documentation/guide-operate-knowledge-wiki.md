@@ -4,7 +4,7 @@ title: "GUIDE — Operating the knowledge wiki node"
 slug: GUIDE-operate-knowledge-wiki
 audience: vendor-internal
 status: live
-last_edited: 2026-04-28
+last_edited: 2026-05-14
 editor: pointsav-engineering
 cites: []
 ---
@@ -161,14 +161,14 @@ curl -I http://documentation.pointsav.com/
 
 The systemd unit currently sets `ProtectHome=true`, which makes `/home`, `/root`, and `/run/user` inaccessible to the service. This is the standard hardening posture for a network-facing service that has no business reading user home directories.
 
-The trade-off: if the content tree lives under a user home directory (e.g., `/home/mathew/Foundry/clones/project-knowledge/...`), the service cannot read it, and the wiki returns 404 for every article on startup. This affected early development on alternative workspace mounts.
+The trade-off: if the content tree lives under a user home directory (e.g., `/home/operator/Foundry/clones/project-knowledge/...`), the service cannot read it, and the wiki returns 404 for every article on startup. This affected early development on alternative workspace mounts.
 
 Two paths to avoid the trade-off:
 
 1. **Keep the content tree out of `/home`.** The current production path `/srv/foundry/clones/project-knowledge/...` is already compliant; this is the recommended posture.
-2. **Relax `ProtectHome` to `read-only`.** The unit can set `ProtectHome=read-only` instead of `true`; the service can read home-directory paths but cannot write. Adequate for a content tree managed via git on the operator's side, not via the wiki's `POST /edit` route. Less hardened than `true` but acceptable when path 1 is impractical.
+2. **Relax `ProtectHome` to `read-only`.** The unit can set `ProtectHome=read-only` instead of `true`; the service can read home-directory paths but cannot write. Adequate for a content tree managed via git on the operator's side, not via the wiki's `POST /edit` route. Less hardened than `true`, but acceptable when path 1 is impractical.
 
-Path 1 is preferred. Path 2 is documented for the case where an operator is running the wiki against a content tree under their home directory for development purposes.
+Path 1 is preferred. Path 2 is documented for the case where an operator is running the wiki against a content tree under a home directory for development purposes.
 
 ## §7 Build coupling — libssl-dev and the workspace cargo
 
