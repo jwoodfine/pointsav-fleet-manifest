@@ -58,7 +58,7 @@ supplied to the binary at start time via `--content-dir`.
 The wiki engine runs as a dedicated `local-knowledge` system user with
 no login shell:
 
-```
+```bash
 sudo useradd \
     --system \
     --create-home \
@@ -69,7 +69,7 @@ sudo useradd \
 
 Verify:
 
-```
+```bash
 id local-knowledge
 ```
 
@@ -81,7 +81,7 @@ that is safe — skip to Step 2.
 
 ## Step 2 — Create the data directory
 
-```
+```bash
 sudo mkdir -p /var/lib/local-knowledge
 sudo chown -R local-knowledge:local-knowledge /var/lib/local-knowledge
 ```
@@ -92,14 +92,14 @@ sudo chown -R local-knowledge:local-knowledge /var/lib/local-knowledge
 
 Build the release binary if not already built:
 
-```
+```bash
 cd ~/Foundry/clones/project-knowledge/pointsav-monorepo/app-mediakit-knowledge
 cargo build --release
 ```
 
 Install to `/usr/local/bin/`:
 
-```
+```bash
 sudo install -m 755 \
     ~/Foundry/clones/project-knowledge/pointsav-monorepo/app-mediakit-knowledge/target/release/app-mediakit-knowledge \
     /usr/local/bin/app-mediakit-knowledge
@@ -107,7 +107,7 @@ sudo install -m 755 \
 
 Verify:
 
-```
+```bash
 /usr/local/bin/app-mediakit-knowledge --version
 ```
 
@@ -164,7 +164,7 @@ WantedBy=multi-user.target
 
 Write the unit file:
 
-```
+```bash
 sudo tee /etc/systemd/system/local-knowledge.service > /dev/null << 'EOF'
 [Unit]
 Description=PointSav Knowledge Wiki (app-mediakit-knowledge)
@@ -205,7 +205,7 @@ EOF
 
 Reload systemd:
 
-```
+```bash
 sudo systemctl daemon-reload
 ```
 
@@ -213,7 +213,7 @@ sudo systemctl daemon-reload
 
 ## Step 5 — Verify unit is registered
 
-```
+```bash
 systemctl cat local-knowledge.service
 ```
 
@@ -240,7 +240,7 @@ applied first.
 
 To replace the binary with a newer build:
 
-```
+```bash
 sudo systemctl stop local-knowledge.service
 
 sudo install -m 755 \
@@ -260,7 +260,7 @@ Updating the binary is a binary swap only.
 
 To fully remove the node provisioning:
 
-```
+```bash
 sudo systemctl stop local-knowledge.service
 sudo systemctl disable local-knowledge.service
 sudo rm /etc/systemd/system/local-knowledge.service
