@@ -43,7 +43,7 @@ tree, starting the service, and verifying it is live.
 
 List existing instances to find the next available number:
 
-```
+```bash
 ls ~/Foundry/deployments/ | grep media-knowledge-documentation
 ```
 
@@ -54,7 +54,7 @@ exists, use `2`, and so on.
 
 ## Step 2 — Create the instance directory
 
-```
+```bash
 INSTANCE=media-knowledge-documentation-1
 mkdir -p ~/Foundry/deployments/$INSTANCE
 ```
@@ -65,7 +65,7 @@ mkdir -p ~/Foundry/deployments/$INSTANCE
 
 Copy the deployment template and fill in the instance-specific fields:
 
-```
+```bash
 cp ~/Foundry/templates/deployment-MANIFEST.md.tmpl \
    ~/Foundry/deployments/$INSTANCE/MANIFEST.md
 ```
@@ -89,13 +89,13 @@ Edit the MANIFEST.md:
 For the PointSav instance, the content directory is the
 `content-wiki-documentation` checkout:
 
-```
+```bash
 CONTENT_DIR=~/Foundry/vendor/content-wiki-documentation
 ```
 
 Verify the directory exists and contains Markdown files:
 
-```
+```bash
 ls $CONTENT_DIR/*.md | head -5
 ```
 
@@ -109,7 +109,7 @@ content directory is not modified by the engine.
 The engine writes derived state (search index, KV store) to a
 separate state directory that is not tracked in Git:
 
-```
+```bash
 sudo mkdir -p /var/lib/local-knowledge/state
 sudo chown local-knowledge:local-knowledge /var/lib/local-knowledge/state
 ```
@@ -122,7 +122,7 @@ The unit installed by `guide-provision-node.md` uses a drop-in file
 to specify the content and state directories. Create an override for
 the content path:
 
-```
+```bash
 sudo systemctl edit local-knowledge.service
 ```
 
@@ -144,7 +144,7 @@ the PointSav instance.
 
 Reload the daemon:
 
-```
+```bash
 sudo systemctl daemon-reload
 ```
 
@@ -152,13 +152,13 @@ sudo systemctl daemon-reload
 
 ## Step 7 — Start the service
 
-```
+```bash
 sudo systemctl enable --now local-knowledge.service
 ```
 
 Check status:
 
-```
+```bash
 systemctl status local-knowledge.service
 journalctl -u local-knowledge.service -f
 ```
@@ -166,7 +166,7 @@ journalctl -u local-knowledge.service -f
 The binary logs its bind address and content directory on startup.
 Wait for a line similar to:
 
-```
+```text
 listening on 127.0.0.1:9090
 ```
 
@@ -176,7 +176,7 @@ listening on 127.0.0.1:9090
 
 Health check:
 
-```
+```bash
 curl -s http://127.0.0.1:9090/healthz
 ```
 
@@ -184,7 +184,7 @@ Expected output: `ok`
 
 List pages:
 
-```
+```bash
 curl -s http://127.0.0.1:9090/
 ```
 
@@ -193,7 +193,7 @@ Expected: an index of `.md` files found in the content directory.
 Render a specific page (substitute a slug that exists in the content
 tree):
 
-```
+```bash
 curl -s http://127.0.0.1:9090/wiki/topic-hello | head -40
 ```
 
@@ -204,7 +204,7 @@ curl -s http://127.0.0.1:9090/wiki/topic-hello | head -40
 Update the instance MANIFEST.md Lifecycle table with the
 provisioning date and the `app-mediakit-knowledge` version:
 
-```
+```text
 | 2026-04-26 | Provisioned by task-cluster-project-knowledge |
 ```
 
@@ -212,7 +212,7 @@ provisioning date and the `app-mediakit-knowledge` version:
 
 ## Stopping and disabling the service
 
-```
+```bash
 sudo systemctl stop local-knowledge.service
 sudo systemctl disable local-knowledge.service
 ```

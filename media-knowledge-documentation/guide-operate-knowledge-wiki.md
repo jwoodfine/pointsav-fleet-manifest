@@ -50,7 +50,7 @@ The v0.1.21 deployment (2026-04-26) had only the GCP firewall open on 80 and 443
 
 The fix landed in the workspace IaC at v0.1.29 in `infrastructure/configure/configure-ubuntu-foundry.sh`. New VM provisioning inherits the rules. A live VM provisioned before v0.1.29 needs the rules added once:
 
-```
+```bash
 sudo ufw allow 80/tcp
 sudo ufw allow 443/tcp
 sudo ufw status numbered
@@ -58,7 +58,7 @@ sudo ufw status numbered
 
 To verify both layers from outside the VM:
 
-```
+```bash
 # OS layer (any host with TCP connectivity to the VM IP):
 nc -zv 34.53.65.203 80
 nc -zv 34.53.65.203 443
@@ -76,7 +76,7 @@ The next vhost queued (`proofreader.woodfinegroup.com`) inherits both layers' fi
 
 The unit is configured to run the binary as the unprivileged `local-knowledge` system user with hardening flags appropriate to a network-facing service that holds no secrets. Key sections:
 
-```
+```ini
 [Service]
 Type=exec
 User=local-knowledge
@@ -102,7 +102,7 @@ The CLI flags and the environment variables both convey the same configuration; 
 
 To edit the unit, edit the IaC copy at `~/Foundry/infrastructure/local-knowledge/local-knowledge.service`, then propagate to `/etc/systemd/system/local-knowledge.service` (symlink or copy as the workspace's IaC convention dictates), then reload and restart:
 
-```
+```bash
 sudo systemctl daemon-reload
 sudo systemctl restart local-knowledge.service
 sudo systemctl status local-knowledge.service
@@ -110,7 +110,7 @@ sudo systemctl status local-knowledge.service
 
 The state directory at `/var/lib/local-knowledge/state` must exist, must be chowned to `local-knowledge:local-knowledge`, and must be named in the unit's `ReadWritePaths=` list. Initial creation:
 
-```
+```bash
 sudo mkdir -p /var/lib/local-knowledge/state
 sudo chown -R local-knowledge:local-knowledge /var/lib/local-knowledge
 ```
@@ -131,7 +131,7 @@ Editing either path follows the same pattern: edit the IaC, edit the live unit, 
 
 The TLS certificate for `documentation.pointsav.com` is provisioned via certbot's nginx integration:
 
-```
+```bash
 sudo certbot --nginx -d documentation.pointsav.com \
   --email open.source@pointsav.com \
   --agree-tos --no-eff-email
@@ -139,7 +139,7 @@ sudo certbot --nginx -d documentation.pointsav.com \
 
 The HTTP-01 challenge requires TCP/80 reachable from the public internet (see §2 firewall). On the workspace VM, certbot's renewal runs via a systemd timer installed by the `python3-certbot` package; the timer fires twice daily and renews any cert with less than 30 days of validity remaining. To inspect:
 
-```
+```bash
 sudo systemctl list-timers | grep certbot
 sudo certbot certificates
 sudo certbot renew --dry-run
@@ -151,7 +151,7 @@ If renewal fails (e.g., the firewall regresses, or the nginx vhost is rewritten 
 
 The HTTP→HTTPS 301 redirect on TCP/80 is installed by certbot's nginx integration as part of the `--nginx` flow. To verify after any nginx reconfiguration:
 
-```
+```bash
 curl -I http://documentation.pointsav.com/
 # expect: HTTP/1.1 301 Moved Permanently
 # expect: Location: https://documentation.pointsav.com/
@@ -176,7 +176,7 @@ A subtlety surfaces when rebuilding the binary from the cluster HEAD. Running `c
 
 The workaround during launch was to build from inside the wiki crate's directory specifically, which keeps cargo's resolver scoped to that crate's dependency graph (which uses only `rustls`, not `openssl-sys`):
 
-```
+```bash
 cd /srv/foundry/clones/project-knowledge/pointsav-monorepo/app-mediakit-knowledge
 cargo build --release
 sudo install -m 755 target/release/app-mediakit-knowledge \
