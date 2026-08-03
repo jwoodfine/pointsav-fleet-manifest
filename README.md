@@ -4,7 +4,7 @@
 
 ---
 ## I. ARCHITECTURAL MANDATE
-This repository demonstrates how a Customer deploys PointSav infrastructure. It uses "Generic Showcase" language, abstracting complex Rust and OS-level implementations into digestible concepts (`os-totebox`, `os-mediakit`). This fleet is engineered to prove the Vendor/Customer model to technical auditors and institutional partners.
+This repository demonstrates how a Customer deploys PointSav infrastructure, using accessible language to describe the underlying Rust and OS-level implementations (`os-totebox`, `os-mediakit`).
 
 ## II. CONTAINED ASSETS
 * `media-marketing-landing`: The public-facing Edge Delivery network demonstrating Zero-Cookie analytics.
